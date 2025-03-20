@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { PieChart, Pie, Cell } from "recharts";
 import { format } from "date-fns";
+import { ptBR } from "date-fns/locale";
 
 const turnos = [
   { name: "Marcelo", schedule: { "Segunda": [[8, 12], [13, 16.5]], "Terça": [[8, 12], [13, 16.5]], "Quarta": [[8, 12], [13, 16.5]], "Quinta": [[8, 12], [13, 16.5]], "Sexta": [[8, 12], [13, 16.5]], "Domingo": [[8, 12], [13, 15.5]] }, color: "#ff9999" },
@@ -19,7 +20,7 @@ const RelogioTurno = () => {
   }, []);
 
   const hora = horaAtual.getHours() + horaAtual.getMinutes() / 60;
-  const diaSemana = format(horaAtual, "EEEE", { locale: new Intl.Locale("pt-BR") });
+  const diaSemana = format(horaAtual, "EEEE", { locale: ptBR }).toLowerCase();
 
   const turnoAtual = turnos.find(({ schedule }) =>
     schedule[diaSemana]?.some(([start, end]) => start <= hora && hora < end)
